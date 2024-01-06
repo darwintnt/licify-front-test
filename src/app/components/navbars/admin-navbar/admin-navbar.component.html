@@ -1,0 +1,50 @@
+<!-- Navbar -->
+<nav
+  class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4 bg-licify-gray-2"
+>
+  <div
+    class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+  >
+    <!-- Brand -->
+    <a
+      class="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+      href="#pablo"
+      >Dashboard</a
+    >
+
+    <!-- User -->
+    <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+      <a
+        class="text-blueGray-500 block"
+        href="#pablo"
+        (click)="toggleDropdown($event)"
+        #btnDropdownRef
+      >
+        <div class="items-center flex">
+          <span
+            class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+          >
+            <img
+              alt="..."
+              class="w-full rounded-full align-middle border-none shadow-lg"
+              src="assets/img/team-1-800x800.jpg"
+            />
+          </span>
+        </div>
+      </a>
+      <div class="min-w-48 z-50" #popoverDropdownRef>
+        <div
+          class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
+          [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+        >
+          <a
+            [routerLink]="['/auth/login']"
+            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          >
+            Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </ul>
+  </div>
+</nav>
