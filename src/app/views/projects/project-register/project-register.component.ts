@@ -6,7 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ProjectService } from '../project.service';
 
 @Component({
   selector: 'app-project-register',
@@ -16,13 +17,23 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './project-register.component.scss',
 })
 export class ProjectRegisterComponent {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private projectService: ProjectService,
+    private router: Router
+  ) {}
 
   get items() {
     return this.projectForm.get('items') as FormArray;
   }
 
   projectForm = this.formBuilder.group({
+    user_id: [
+      localStorage.getItem('user'),
+      {
+        validators: [Validators.required],
+      },
+    ],
     name: [
       '',
       {
@@ -75,6 +86,16 @@ export class ProjectRegisterComponent {
       return;
     }
 
-    console.log(this.projectForm.value);
+    this.projectService.addProject(this.projectForm.value).subscribe({
+      next: (data) => {
+        alert('Proyecto creado');
+        this.router.navigate(['/constructor/projects']);
+      },
+      error: (error) => {
+        alert(
+          `${error.message}: El proyecto del mismo nombre ya se encuentra registrado en el sistema`
+        );
+      },
+    });
   }
 }

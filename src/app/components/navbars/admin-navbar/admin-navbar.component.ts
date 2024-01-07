@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { createPopper } from '@popperjs/core';
+import { AuthService } from '../../../views/auth/auth.service';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -12,10 +13,15 @@ import { createPopper } from '@popperjs/core';
 })
 export class AdminNavbarComponent implements AfterViewInit {
   dropdownPopoverShow = false;
+
   @ViewChild('btnDropdownRef', { static: false })
   btnDropdownRef!: ElementRef;
+
   @ViewChild('popoverDropdownRef', { static: false })
   popoverDropdownRef!: ElementRef;
+
+  constructor(private authService: AuthService) {}
+
   ngAfterViewInit() {
     createPopper(
       this.btnDropdownRef.nativeElement,
@@ -25,6 +31,7 @@ export class AdminNavbarComponent implements AfterViewInit {
       }
     );
   }
+
   toggleDropdown(event: any) {
     event.preventDefault();
     if (this.dropdownPopoverShow) {
@@ -32,5 +39,9 @@ export class AdminNavbarComponent implements AfterViewInit {
     } else {
       this.dropdownPopoverShow = true;
     }
+  }
+
+  exit(): void {
+    this.authService.logout();
   }
 }

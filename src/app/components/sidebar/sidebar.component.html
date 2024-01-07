@@ -10,7 +10,20 @@
       type="button"
       (click)="toggleCollapseShow('bg-white m-2 py-3 px-6')"
     >
-      <i class="fas fa-bars"></i>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
     </button>
     <!-- Brand -->
     <span
@@ -18,18 +31,9 @@
     >
       <span class="hidden sm:block"> Licify </span>
     </span>
-    <!-- User -->
-    <ul class="md:hidden items-center flex flex-wrap list-none">
-      <!-- <li class="inline-block relative">
-        <app-notification-dropdown class="block"></app-notification-dropdown>
-      </li>
-      <li class="inline-block relative">
-        <app-user-dropdown class="block"></app-user-dropdown>
-      </li> -->
-    </ul>
     <!-- Collapse -->
     <div
-      class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
+      class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded bg-licify-yellow-100"
       [ngClass]="collapseShow"
     >
       <!-- Collapse header -->
@@ -50,29 +54,32 @@
               class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
               (click)="toggleCollapseShow('hidden')"
             >
-              <i class="fas fa-times"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </div>
         </div>
       </div>
-      <!-- Form -->
-      <form class="mt-6 mb-4 md:hidden">
-        <div class="mb-3 pt-0">
-          <input
-            type="text"
-            placeholder="Search"
-            class="px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-          />
-        </div>
-      </form>
 
       <!-- Divider -->
       <hr class="my-4 md:min-w-full" />
       <!-- Heading -->
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-        <li class="items-center">
+        <li class="items-center" *ngIf="!isConstructor()">
           <a
-            [routerLink]="['/admin/active']"
+            [routerLink]="['/provider/active']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #adminActive="routerLinkActive"
@@ -103,9 +110,9 @@
           </a>
         </li>
 
-        <li class="items-center">
+        <li class="items-center" *ngIf="isConstructor()">
           <a
-            [routerLink]="['/admin/project-home']"
+            [routerLink]="['/constructor/projects']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #adminProjectHome="routerLinkActive"
@@ -136,9 +143,9 @@
           </a>
         </li>
 
-        <li class="items-center">
+        <li class="items-center" *ngIf="!isConstructor()">
           <a
-            [routerLink]="['/admin/apply']"
+            [routerLink]="['/provider/applications']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #adminApply="routerLinkActive"

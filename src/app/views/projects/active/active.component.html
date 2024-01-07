@@ -12,14 +12,8 @@
   </div>
 
   <div class="flex gap-5 flex-wrap justify-center">
-    <app-card />
-    <app-card />
-    <app-card />
-    <app-card />
-    <app-card />
-    <app-card />
-    <app-card />
-    <app-card />
-    <app-card />
+    <span *ngFor="let project of projects; let i = index">
+      <app-card [data]="project" [activeApply]="true" />
+    </span>
   </div>
 </section>

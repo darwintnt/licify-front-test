@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <nav
-  class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4 bg-licify-gray-2"
+  class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4 bg-gray-800"
 >
   <div
     class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
@@ -15,14 +15,14 @@
     <!-- User -->
     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
       <a
-        class="text-blueGray-500 block"
+        class="block"
         href="#pablo"
         (click)="toggleDropdown($event)"
         #btnDropdownRef
       >
         <div class="items-center flex">
           <span
-            class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+            class="w-12 h-12 text-sm text-white inline-flex items-center justify-center rounded-full"
           >
             <img
               alt="..."
@@ -38,8 +38,8 @@
           [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
         >
           <a
-            [routerLink]="['/auth/login']"
-            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            (click)="exit()"
+            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent cursor-pointer"
           >
             Cerrar Sesión
           </a>

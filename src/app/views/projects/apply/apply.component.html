@@ -1,1 +1,136 @@
-<p>apply works!</p>
+<section class="flex flex-col gap-4 justify-center items-center">
+  <h2 class="text-2xl font-bold">Aplicar a proyecto</h2>
+  <div class="rounded-md shadow-md bg-slate-50 p-8">
+    <form (submit)="submit()" [formGroup]="projectForm">
+      <section class="flex flex-col gap-3">
+        <div class="relative w-full mb-3">
+          <label
+            class="block uppercase text-xs font-bold mb-2"
+            htmlFor="grid-password"
+          >
+            Nombre del proyecto
+          </label>
+          <input
+            type="text"
+            class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            formControlName="name"
+            readonly
+          />
+        </div>
+
+        <div class="relative w-full mb-3">
+          <label class="block uppercase text-xs font-bold mb-2">
+            Fecha de Inicio
+          </label>
+          <input
+            type="text"
+            class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            formControlName="init_date"
+            readonly
+          />
+        </div>
+
+        <div class="relative w-full mb-3">
+          <label class="block uppercase text-xs font-bold mb-2">
+            Fecha de finalización
+          </label>
+          <input
+            type="text"
+            class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            formControlName="end_date"
+            readonly
+          />
+        </div>
+      </section>
+
+      <section>
+        <h3 class="text-gray-400 my-4 block">Items del proyecto</h3>
+
+        <div
+          formArrayName="items"
+          *ngFor="let item of items.controls; let i = index"
+        >
+          <div
+            [formGroupName]="i"
+            class="flex gap-3 items-center justify-between my-2"
+          >
+            <div class="flex flex-col gap-1 w-full">
+              <input
+                type="text"
+                class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+                formControlName="description"
+                [attr.id]="'description' + i"
+                [attr.placeholder]="'Descripción'"
+                readonly
+              />
+            </div>
+            <div class="flex flex-col gap-1 w-full">
+              <input
+                type="text"
+                class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+                formControlName="value"
+                [attr.id]="'value' + i"
+                [attr.placeholder]="'Valor unitario ($)'"
+                readonly
+              />
+            </div>
+            <div class="flex flex-col gap-1 w-full">
+              <input
+                type="number"
+                class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+                formControlName="offered_value"
+                [attr.id]="'offered_value' + i"
+                [attr.placeholder]="'Oferte un valor ($)'"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="flex justify-end items-center mt-4 gap-2">
+        <a
+          [routerLink]="['/provider/active']"
+          class="bg-gray-100 p-3 rounded-md h-[48px] flex items-center justify-center text-licify-gray-2 w-[120px]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+            />
+          </svg>
+
+          <span class="block ml-2">Salir</span>
+        </a>
+
+        <button
+          type="submit"
+          class="bg-green-600 p-3 rounded-md h-[48px] flex items-center justify-center text-white w-[120px]"
+        >
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+        />
+      </svg>
+          <span class="block ml-2">Aplicar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

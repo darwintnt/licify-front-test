@@ -85,16 +85,16 @@
                 class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
                 formControlName="description"
                 [attr.id]="'description' + i"
-                [attr.placeholder]="'Descripción ' + i"
+                [attr.placeholder]="'Descripción'"
               />
             </div>
             <div class="flex flex-col gap-1 w-full">
               <input
-                type="text"
+                type="number"
                 class="border-0 px-3 py-3 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
                 formControlName="value"
                 [attr.id]="'value' + i"
-                [attr.placeholder]="'Valor ' + i"
+                [attr.placeholder]="'Valor unitario ($)'"
               />
             </div>
             <div class="col-md-2">
@@ -121,7 +121,7 @@
 
       <div class="flex justify-end items-center mt-4 gap-2">
         <a
-          [routerLink]="['/admin/project-home']"
+          [routerLink]="['/constructor/projects']"
           class="bg-gray-100 p-3 rounded-md h-[48px] flex items-center justify-center text-licify-gray-2 w-[120px]"
         >
           <svg
@@ -143,6 +143,7 @@
         </a>
 
         <button
+          type="submit"
           class="bg-licify-gray-2 p-3 rounded-md h-[48px] flex items-center justify-center text-white w-[120px]"
         >
           <svg
