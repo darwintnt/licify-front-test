@@ -19,8 +19,9 @@ export class ProjectHomeComponent {
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
+    const id = localStorage.getItem('user') ?? '';
     this.projectService
-      .getProjects()
+      .getProjectsById(id)
       .subscribe((res: any) => this.projects = res.data);
   }
 }

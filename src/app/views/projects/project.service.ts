@@ -29,6 +29,12 @@ export class ProjectService {
     });
   }
 
+  getProjectsById(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/v1/project/constructor/history?id=${id}`, {
+      headers: this.headersApi,
+    });
+  }
+
   getApplyProjects(id: string): Observable<any[]> {
     return this.http.get<any[]>(
       `${this.baseUrl}/v1/application/provider/history?id=${id}`,
