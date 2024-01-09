@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
   private headersApi: HttpHeaders;
-  private baseUrl: string = 'http://localhost:3000/api';
+  private baseUrl: string = environment.API_URL;
 
   constructor(private http: HttpClient) {
     this.headersApi = new HttpHeaders({
