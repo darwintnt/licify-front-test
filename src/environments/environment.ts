@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  API_URL: "https://licify-back-test-production.up.railway.app/api"
+  API_URL: "http://localhost:3000/api"
 };

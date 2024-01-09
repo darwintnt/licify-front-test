@@ -1,5 +1,5 @@
 <section>
-  <div class="flex items-center justify-between">
+  <div class="flex flex-col md:flex-row items-center justify-between">
     <div>
       <h2 class="font-bold text-licify-gray-2 text-2xl mb-2">Mis Proyectos</h2>
       <span class="text-gray-400 mb-4 block"
@@ -31,7 +31,7 @@
     </a>
   </div>
 
-  <div class="flex gap-5 flex-wrap justify-center">
+  <div class="flex gap-5 flex-wrap justify-center my-4">
     <span *ngFor="let project of projects; let i = index">
       <app-card [data]="project" />
     </span>

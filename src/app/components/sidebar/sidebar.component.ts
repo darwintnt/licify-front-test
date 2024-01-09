@@ -22,4 +22,8 @@ export class SidebarComponent {
   isConstructor(): boolean {
     return this.authService.isConstructorUser
   }
+
+  exit(): void {
+    this.authService.logout();
+  }
 }
