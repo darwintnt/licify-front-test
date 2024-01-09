@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -9,12 +9,17 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   private baseUrl: string = environment.API_URL;
+  private headersApi: HttpHeaders;
   public user: Observable<any>;
   private userSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject<any>(localStorage.getItem('user'));
     this.user = this.userSubject.asObservable();
+    this.headersApi = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `bearer ${localStorage.getItem('token')}`,
+    });
   }
 
   login(credentials: any): any {
@@ -28,10 +33,10 @@ export class AuthService {
           localStorage.setItem('role', data.role);
           this.userSubject.next(data);
 
-          if(this.isConstructorUser) {
-            this.router.navigate(['/constructor/projects'])
+          if (this.isConstructorUser) {
+            this.router.navigate(['/constructor/projects']);
           } else {
-            this.router.navigate(['/provider/active'])
+            this.router.navigate(['/provider/active']);
           }
         },
         error: (error) => {
@@ -49,7 +54,9 @@ export class AuthService {
   }
 
   register(user: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/v1/user`, user);
+    return this.http.post<any>(`${this.baseUrl}/v1/user`, user, {
+      headers: this.headersApi,
+    });
   }
 
   get userValue(): any {
