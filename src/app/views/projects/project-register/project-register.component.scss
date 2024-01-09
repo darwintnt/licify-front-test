@@ -1,0 +1,9 @@
+::-webkit-scrollbar {
+  width: 6px !important; /* Tamaño del scroll en vertical */
+  height: 6px !important; /* Tamaño del scroll en horizontal */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px !important;
+  @apply bg-licify-yellow;
+}

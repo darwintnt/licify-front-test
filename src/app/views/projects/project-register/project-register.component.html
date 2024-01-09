@@ -1,7 +1,11 @@
 <section class="flex flex-col gap-4 justify-center items-center">
   <h2 class="text-2xl font-bold">Registrar nuevo proyecto</h2>
   <div class="w-1/2 rounded-md shadow-md bg-slate-50 p-8">
-    <form (submit)="submit()" [formGroup]="projectForm" enctype="multipart/form-data">
+    <form
+      (submit)="submit()"
+      [formGroup]="projectForm"
+      enctype="multipart/form-data"
+    >
       <section class="flex flex-col gap-3">
         <div class="relative w-full mb-3">
           <label
@@ -54,11 +58,7 @@
         </div>
         <div class="flex gap-2 overflow-x-scroll">
           @for (preview of previews; track $index) {
-          <img
-            [src]="preview"
-            class="preview"
-            [alt]="preview"
-          />
+          <img [src]="preview" class="preview" [alt]="preview" />
           }
         </div>
       </section>
@@ -184,5 +184,4 @@
       </div>
     </form>
   </div>
-  <pre>{{ projectForm.value | json }}</pre>
 </section>

@@ -127,6 +127,8 @@ export class ProjectRegisterComponent {
         reader.readAsDataURL(this.selectedFiles[i]);
       }
     }
+
+    this.uploadFiles();
   }
 
   submit() {
@@ -137,6 +139,22 @@ export class ProjectRegisterComponent {
       return;
     }
 
+    if (this.files && this.files?.length > 0) {
+      this.projectService.addProject(this.projectForm.value).subscribe({
+        next: (data) => {
+          alert('Proyecto creado');
+          this.router.navigate(['/constructor/projects']);
+        },
+        error: (error) => {
+          alert(
+            `${error.message}: El proyecto del mismo nombre ya se encuentra registrado en el sistema`
+          );
+        },
+      });
+    }
+  }
+
+  uploadFiles(): void {
     if (this.selectedFiles) {
       for (let i = 0; i < this.selectedFiles?.length; i++) {
         const form = new FormData();
@@ -153,16 +171,6 @@ export class ProjectRegisterComponent {
       }
     }
 
-    this.projectService.addProject(this.projectForm.value).subscribe({
-      next: (data) => {
-        alert('Proyecto creado');
-        this.router.navigate(['/constructor/projects']);
-      },
-      error: (error) => {
-        alert(
-          `${error.message}: El proyecto del mismo nombre ya se encuentra registrado en el sistema`
-        );
-      },
-    });
+    this.projectForm.get('images')?.setValue(this.files);
   }
 }
