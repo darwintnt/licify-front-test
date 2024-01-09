@@ -32,13 +32,13 @@ export class ApplyComponent implements OnInit {
   ngOnInit(): void {
     this.projectForm = this.formBuilder.group({
       user_id: [
-        localStorage.getItem('user'),
+        '',
         {
           validators: [Validators.required],
         },
       ],
       project_id: [
-        localStorage.getItem('user'),
+        '',
         {
           validators: [Validators.required],
         },
@@ -104,6 +104,7 @@ export class ApplyComponent implements OnInit {
     this.projectService.getProjectById(id).subscribe((res: any) => {
       this.projectForm?.patchValue({
         ...res.data,
+        user_id: localStorage.getItem('user'),
         init_date: this.datePipe.transform(res.data.init_date, 'dd/MM/yyyy'),
         end_date: this.datePipe.transform(res.data.end_date, 'dd/MM/yyyy'),
       });

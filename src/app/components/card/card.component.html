@@ -1,5 +1,5 @@
 <div class="w-[380px] p-4 rounded-lg card-shadow">
-  <app-carousel />
+  <app-carousel [images]="getImages()" [id]="data._id" />
 
   <p class="font-bold text-lg mb-2 text-licify-gray-2">{{ data.name }}</p>
   <span class="block text-gray-400 text-sm mb-1"

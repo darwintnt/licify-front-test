@@ -27,8 +27,16 @@ export class CardComponent {
 
   handleTotalProject(items: any): number {
     return items.reduce(
-      (acumulador: number, objeto: any) => acumulador + objeto.value,
+      (accumulator: number, obj: any) => accumulator + obj.value,
       0
     );
+  }
+
+  getImages(): any {
+    if (this.data.images && this.data.images.length > 0) {
+      return this.data.images;
+    }
+
+    return ['../../../assets/img/noimageavailable.png'];
   }
 }

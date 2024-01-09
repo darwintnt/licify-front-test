@@ -18,7 +18,7 @@ export class ActiveComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService
-      .getActiveProjects()
+      .getProjects()
       .subscribe((res: any) => this.projects = res.data);
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,27 +6,52 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectService {
-  private baseUrl: string = 'http://localhost:3000';
+  private headersApi: HttpHeaders;
+  private baseUrl: string = 'http://localhost:3000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.headersApi = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `bearer ${localStorage.getItem('token')}`,
+    });
+  }
 
   getProjects(): Observable<any[]> {
-    return this.http.get<any[]>(`${ this.baseUrl }/v1/project`);
+    return this.http.get<any[]>(`${this.baseUrl}/v1/project`, {
+      headers: this.headersApi,
+    });
   }
 
   getProjectById(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`${ this.baseUrl }/v1/project/${id}`);
+    return this.http.get<any[]>(`${this.baseUrl}/v1/project/${id}`, {
+      headers: this.headersApi,
+    });
   }
 
-  getActiveProjects(): Observable<any[]> {
-    return this.http.get<any[]>(`${ this.baseUrl }/v1/project`);
+  getApplyProjects(id: string): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/v1/application/provider/history?id=${id}`,
+      { headers: this.headersApi }
+    );
   }
 
   addProject(project: any): Observable<any> {
-    return this.http.post<any>(`${ this.baseUrl }/v1/project`, project);
+    return this.http.post<any>(`${this.baseUrl}/v1/project`, project, {
+      headers: this.headersApi,
+    });
   }
 
   applyToProject(application: any): Observable<any> {
-    return this.http.post<any>(`${ this.baseUrl }/v1/application`, application);
+    return this.http.post<any>(`${this.baseUrl}/v1/application`, application, {
+      headers: this.headersApi,
+    });
+  }
+
+  uploadFile(file: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/v1/uploads`, file, {
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('token')}`
+      },
+    });
   }
 }

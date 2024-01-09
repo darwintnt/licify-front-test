@@ -1,0 +1,33 @@
+<section>
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="font-bold text-licify-gray-2 text-2xl mb-2">
+        Mis Aplicaciones
+      </h2>
+      <span class="text-gray-400 mb-4 block"
+        >En esta sección encontrarás todos los proyectos a los cuales has aplicado del más reciente al más antiguo.</span
+      >
+    </div>
+  </div>
+
+  <p-table [value]="applications" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Proyecto</th>
+        <th scope="col">Valor Proyecto</th>
+        <th scope="col">Valor Ofertado</th>
+        <th scope="col">Fecha Aplicación</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td>{{ project?._id }}</td>
+        <td>{{ project?.project_id.name }}</td>
+        <td>{{ handleTotalProject(project?.items) | currency }}</td>
+        <td>{{ handleTotalOfferedValueProject(project?.items) | currency }}</td>
+        <td>{{ project?.createdAt | date : "YYYY-MM-dd h:mm a" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

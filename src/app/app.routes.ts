@@ -3,7 +3,6 @@ import { LoginComponent } from './views/auth/login/login.component';
 import { RegisterComponent } from './views/auth/register/register.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { AdminComponent } from './layouts/admin/admin.component';
-import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
 import { ActiveComponent } from './views/projects/active/active.component';
 import { ApplyComponent } from './views/projects/apply/apply.component';
 import { ProjectHomeComponent } from './views/projects/project-home/project-home.component';
@@ -11,6 +10,7 @@ import { ProjectRegisterComponent } from './views/projects/project-register/proj
 import { AuthGuard } from './helpers/guards/auth.guard';
 import { IsProvider } from './helpers/guards/isProvider.guard';
 import { IsConstructor } from './helpers/guards/isConstructor.guard';
+import { ApplicationComponent } from './views/projects/application/application.component';
 
 export const routes: Routes = [
   // auth views
@@ -44,7 +44,7 @@ export const routes: Routes = [
     children: [
       { path: 'active', component: ActiveComponent },
       { path: 'apply', component: ApplyComponent },
-      { path: 'applications', component: DashboardComponent },
+      { path: 'applications', component: ApplicationComponent },
       { path: '', redirectTo: 'active', pathMatch: 'full' },
     ],
   },

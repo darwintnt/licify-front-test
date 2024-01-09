@@ -1,24 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage, CarouselModule],
   templateUrl: './carousel.component.html',
 })
-export class CarouselComponent implements OnInit {
-  @Input() images: Array<string> | undefined;
-  @Input() duration: number = 1000;
-  @Input() mode: string = 'static'; // slide o static
+export class CarouselComponent {
+  @Input() images: Array<string> = [];
+  @Input() id: string = 'default-carousel';
+  @Input() duration: number = 5000;
 
-  ngOnInit(): void {
-    this.images = [
-      'https://licify-images.s3.amazonaws.com/house_1.jpg',
-      'https://licify-images.s3.amazonaws.com/house_2.jpg',
-      'https://licify-images.s3.amazonaws.com/house_3.jpg',
-      'https://licify-images.s3.amazonaws.com/house_2.jpg',
-      'https://licify-images.s3.amazonaws.com/house_3.jpg',
-    ]
+  circular: boolean = false;
+
+  isSlider(): boolean {
+    if (this.images && this.images.length > 1) {
+      this.circular = true;
+      return this.circular;
+    }
+
+    return false;
   }
 }

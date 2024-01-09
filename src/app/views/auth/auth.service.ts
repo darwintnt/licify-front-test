@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl: string = 'http://localhost:3000';
+  private baseUrl: string = 'http://localhost:3000/api';
   public user: Observable<any>;
   private userSubject: BehaviorSubject<any>;
 
@@ -47,8 +47,8 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
   }
 
-  register(project: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/v1/user`, project);
+  register(user: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/v1/user`, user);
   }
 
   get userValue(): any {

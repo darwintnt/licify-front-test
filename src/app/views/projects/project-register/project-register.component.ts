@@ -1,22 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ProjectService } from '../project.service';
+import { FileUploadModule } from 'primeng/fileupload';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-project-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterOutlet, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterOutlet,
+    RouterModule,
+    FileUploadModule,
+  ],
   templateUrl: './project-register.component.html',
   styleUrl: './project-register.component.scss',
 })
 export class ProjectRegisterComponent {
+  selectedFiles?: FileList;
+  message: string[] = [];
+  previews: string[] = [];
+  imageInfos?: Observable<any>;
+  files?: Array<string> = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
@@ -25,6 +41,10 @@ export class ProjectRegisterComponent {
 
   get items() {
     return this.projectForm.get('items') as FormArray;
+  }
+
+  get images() {
+    return this.projectForm.get('images') as FormArray;
   }
 
   projectForm = this.formBuilder.group({
@@ -53,7 +73,18 @@ export class ProjectRegisterComponent {
       },
     ],
     items: this.formBuilder.array([]),
+    images: this.files,
   });
+
+  validateImages(control: AbstractControl): ValidationErrors | null {
+    const fileList: File[] = control.value;
+
+    if (!fileList || fileList.length === 0) {
+      return { noImages: 'Debe seleccionar al menos una imagen.' };
+    }
+
+    return null;
+  }
 
   addItem() {
     const itemsFormGroup = this.formBuilder.group({
@@ -78,12 +109,48 @@ export class ProjectRegisterComponent {
     this.items.removeAt(idx);
   }
 
+  selectFiles(event: any): void {
+    this.message = [];
+    this.selectedFiles = event.target.files;
+
+    this.previews = [];
+
+    if (this.selectedFiles && this.selectedFiles.length > 0) {
+      const numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          this.previews.push(e.target.result);
+        };
+
+        reader.readAsDataURL(this.selectedFiles[i]);
+      }
+    }
+  }
+
   submit() {
     if (!this.projectForm.valid) {
       alert(
         'Información incompleta en el formulario por favor revise nuevamente'
       );
       return;
+    }
+
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles?.length; i++) {
+        const form = new FormData();
+        form.append('file', this.selectedFiles[i]);
+        this.projectService.uploadFile(form).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.files?.push(res.data.fileName);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+      }
     }
 
     this.projectService.addProject(this.projectForm.value).subscribe({
